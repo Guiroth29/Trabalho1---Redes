@@ -15,7 +15,7 @@ vídeos disponíveis no servidor, em mp4 e/ou avi.
 O usuário, no cliente, pode escolher um dos vídeos, a partir da escolha o vídeo é
 transferido para o cliente. Após a transferência o cliente chama um player para a exibição iniciar.
 
-======================================================================================================
+===========================================================================================
 
 2. Detalhes de implementação:
 
@@ -56,7 +56,7 @@ Os erros reportados podem ser:
 2 não encontrado
 3 disco cheio
 
-======================================================================================================
+===========================================================================================
 
 3. ANTES DE RODAR O PROGRAMA:
 
@@ -67,7 +67,7 @@ Os erros reportados podem ser:
 5) "make"
 6) em uma máquina faz "sudo ./server" e na outra "sudo ./client"
 
-======================================================================================================
+===========================================================================================
 
 4. OPCIONAL:
 
