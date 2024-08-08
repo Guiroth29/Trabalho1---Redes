@@ -1,5 +1,7 @@
 Streaming de vídeo baseado no protocolo definido em aula, descrito a seguir.
 
+
+
 1. Descrição:
 
 O sistema desenvolvido consiste em dois elementos, um cliente e um servidor. Podem ser o mesmo
@@ -54,7 +56,9 @@ Os erros reportados podem ser:
 2 não encontrado
 3 disco cheio
 
-ANTES DE RODAR O PROGRAMA:
+======================================================================================================
+
+3. ANTES DE RODAR O PROGRAMA:
 
 1) 2 computadores com boot por USB ou 2 computadores com Root (se quiser fazer com só um para testar muda o "eno1" por exemplo pra "lo").
 2) "sudo dnf install make gcc ncurses-devel openh264 -y"
@@ -63,9 +67,9 @@ ANTES DE RODAR O PROGRAMA:
 5) "make"
 6) em uma máquina faz "sudo ./server" e na outra "sudo ./client"
 
-==============================================================================================================================================
+======================================================================================================
 
-OPCIONAL:
+4. OPCIONAL:
 
 1- "ifconfig" para ver o tipo (lo, eno1, eth0, etc...) e daí alterar em client.c e server.c na parte de "cria_raw_socket()"
 2 - "touch *", depois make clean purge e por fim make de novo caso dê diferença entre os clocks das máquinas
