@@ -72,5 +72,7 @@ Os erros reportados podem ser:
 4. OPCIONAL:
 
 1- "ifconfig" para ver o tipo (lo, eno1, eth0, etc...) e daí alterar em client.c e server.c na parte de "cria_raw_socket()"
+
 2 - "touch *", depois make clean purge e por fim make de novo caso dê diferença entre os clocks das máquinas
+
 3 - "id -u" caso precise mudar o UID
