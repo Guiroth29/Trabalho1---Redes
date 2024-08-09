@@ -16,6 +16,8 @@
 // ============================= FUNÇÕES CLIENTE =========================================================================
 
 void processar_mensagens_lista(int sockfd, t_pilha *pilha, mensagem_t *recebido, unsigned char *sequencia) {
+    int reconectar = 0; // Flag para indicar se deve reconectar
+
     while (!verifica_fim(recebido)) {
         if (verifica_dados(recebido)) {
             if (recebido->sequencia == *sequencia) {
@@ -35,9 +37,30 @@ void processar_mensagens_lista(int sockfd, t_pilha *pilha, mensagem_t *recebido,
             }
         }
 
-        if (recv(sockfd, recebido, sizeof(*recebido), 0) < 0) {
-            perror("Erro no recebimento!");
-            exit(EXIT_FAILURE);
+        int recv_result;
+        while ((recv_result = recv(sockfd, recebido, sizeof(*recebido), 0)) < 0) {
+            if (errno == ECONNRESET || errno == ECONNABORTED) {
+                // Esperar antes de reconectar
+                sleep(10); // Espera 10 segundos antes de tentar reconectar
+                sockfd = cria_raw_socket("enp3s0f3u2");
+                if (sockfd == -1) {
+                    perror("Erro ao reconectar");
+                    exit(EXIT_FAILURE);
+                } else {
+                    reconectar = 1; // Marca para reconectar
+                    break; // Sai do loop de recebimento
+                }
+            } else {
+                perror("Erro no recebimento!");
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        if (reconectar) {
+            reconectar = 0; // Reseta a flag
+            // Aguarda um tempo adicional antes de continuar para garantir que a conexão anterior seja encerrada corretamente
+            sleep(15); // Espera 15 segundos antes de continuar
+            continue; // Reinicia o loop para processar mensagens
         }
     }
 }
@@ -216,7 +239,7 @@ int main (int argc, char *argv []) {
     sequencia = 0;
 
     // Cria Raw Socket
-    sockfd = cria_raw_socket ("enp3s0f4u1");
+    sockfd = cria_raw_socket ("enp3s0f3u2");
     if  (sockfd == -1)
         return -1;
 
